@@ -9,25 +9,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-router.post("/", async (req, res) => {
+app.listen(process.env.PORT, () => {
+  console.log("Server running on port", process.env.PORT);
+});
+
+app.post("/api/moods", async (req, res) => {
   console.log("POST /api/moods request received");
   console.log("Request body:", req.body);
 
-  try {
-    const mood = req.body.mood;
-    const name = req.body.name;
+  const mood = req.body.mood;
 
-    const result = await db.query(
-      "INSERT INTO mood_log (full_name, mood_text) VALUES (?, ?)",
-      [name, mood]
-    );
+  const result = await db.query(
+    "INSERT INTO mood_log (mood) VALUES (?)",
+    [mood]
+  );
 
-    console.log("Database insert result:", result);
+  console.log("Database insert result:", result);
 
-    res.json({ message: "Mood saved successfully" });
-
-  } catch (error) {
-    console.error("Database error:", error);
-    res.status(500).json({ error: "Database error" });
-  }
+  res.json({ message: "Mood saved successfully" });
 });
