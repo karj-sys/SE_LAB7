@@ -9,7 +9,7 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-  base: '/lab5/',
+  base: '/SE_LAB7/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
