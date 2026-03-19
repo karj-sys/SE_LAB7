@@ -15,7 +15,15 @@ app.use(express.json());
 app.use("/api/moods", moodRoutes);
 
 // --- PART 0.2: ADD LOGGING IN THE API ---
-// This route matches your lab requirements specifically
+
+// 1. ADDED THIS GET ROUTE: So the link works in your browser
+app.get("/mood", (req, res) => {
+  res.json({ 
+    message: "Mood endpoint is active. Use the Vue form to POST data here." 
+  });
+});
+
+// 2. POST ROUTE: For your lab logging requirements
 app.post("/mood", async (req, res) => {
   console.log("POST /mood request received");
   console.log("Request body:", req.body);
@@ -23,10 +31,9 @@ app.post("/mood", async (req, res) => {
   const mood = req.body.mood;
   
   try {
-    // NOTE: Make sure your table is 'mood_log' for this specific route 
-    // or change to 'moods' if that's what you used in Lab 5.
+    // FIX: Uses 'mood_log' table and 'mood_text' column
     const result = await db.query(
-      "INSERT INTO mood_log (mood) VALUES (?)",
+      "INSERT INTO mood_log (mood_text) VALUES (?)",
       [mood]
     );
 

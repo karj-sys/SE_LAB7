@@ -100,7 +100,7 @@ export default {
 
       // --- PART 1: BUG #1 (Undefined Variable) ---
       // UNCOMMENT the line below to trigger the ReferenceError for your screenshot.
-      // console.log("User mood value:", moodValue); 
+       console.log("User mood value:", moodValue); 
 
       this.loading = true;
       this.error = null;
