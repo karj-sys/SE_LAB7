@@ -2,7 +2,6 @@
   <div class="container">
     <h2>Mood Check-in</h2>
 
-    <!-- Input Section -->
     <div class="form-group">
       <input v-model="name" placeholder="Your name" :disabled="loading" />
       <textarea v-model="mood" placeholder="How are you feeling today?" :disabled="loading"></textarea>
@@ -13,7 +12,6 @@
       </button>
     </div>
 
-    <!-- Error/AI Response Section -->
     <p v-if="error" class="error-msg">⚠️ {{ error }}</p>
     <div v-if="aiMessage" class="ai-box">
       <strong>AI Advisor:</strong> {{ aiMessage }}
@@ -21,7 +19,6 @@
 
     <hr />
 
-    <!-- Mood History List (Extra Credit) -->
     <h3>Mood History</h3>
     <button @click="fetchHistory" class="refresh-btn">🔄 Refresh History</button>
 
@@ -64,18 +61,31 @@ export default {
   },
   methods: {
     async submitMood() {
+      // --- PART 0.1: LOGGING ---
+      console.log("User clicked submit button");
+      console.log("Mood value entered:", this.mood);
+
+      // --- PART 1: BUG #1 (Undefined Variable) ---
+      // UNCOMMENT the line below to trigger the ReferenceError for your screenshot, then comment it back.
+      // console.log("User mood value:", moodValue); 
+
       this.loading = true;
       this.error = null;
+      
       try {
         const res = await api.post('/api/moods', {
-          user_id: 1,
+          user_id: 1, // Static ID for lab purposes
           mood_text: this.mood
         });
+        
+        // --- PART 0.1: LOGGING STATUS ---
+        console.log("API response status:", res.status);
         
         this.aiMessage = res.data.ai_message || res.data.aiMessage;
         this.mood = ''; 
         this.fetchHistory();
       } catch (err) {
+        console.error("Submit error:", err);
         this.error = "Failed to connect to server. Is the backend running?";
       } finally {
         this.loading = false;
@@ -84,6 +94,7 @@ export default {
     async fetchHistory() {
       try {
         const res = await api.get('/api/moods');
+        // PART 2: Inspect this in the Network Tab for your screenshot!
         this.history = res.data;
       } catch (err) {
         console.error("Could not fetch history");
@@ -92,52 +103,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.container {
-  max-width: 600px;
-  margin: auto;
-  font-family: sans-serif;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.ai-box {
-  background: rgb(0, 0, 0);
-  padding: 15px;
-  border-left: 5px solid #2196f3;
-  margin-top: 10px;
-}
-
-.error-msg {
-  color: red;
-  font-weight: bold;
-}
-
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-.history-table th,
-.history-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-.refresh-btn {
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-</style>
