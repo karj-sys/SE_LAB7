@@ -99,7 +99,7 @@ export default {
       console.log("Mood value entered:", this.mood);
 
       // --- PART 1: BUG #1 (Undefined Variable) ---
-      // UNCOMMENT the line below to trigger the ReferenceError for your screenshot, then comment it back.
+      // UNCOMMENT the line below to trigger the ReferenceError for your screenshot.
       // console.log("User mood value:", moodValue); 
 
       this.loading = true;
@@ -143,7 +143,7 @@ export default {
   max-width: 900px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #f8f9fa; /* Neutral Light Grey */
+  background-color: #f8f9fa;
   font-family: 'Inter', -apple-system, sans-serif;
   color: #334155;
   border-radius: 16px;
@@ -164,7 +164,6 @@ h2 {
   color: #64748b;
 }
 
-/* Form Card */
 .form-card {
   background: white;
   padding: 30px;
@@ -196,7 +195,7 @@ input, textarea {
 
 input:focus, textarea:focus {
   outline: none;
-  border-color: #a8dadc; /* Soft Teal */
+  border-color: #a8dadc;
   box-shadow: 0 0 0 3px rgba(168, 218, 220, 0.2);
 }
 
@@ -205,11 +204,10 @@ textarea {
   resize: vertical;
 }
 
-/* Buttons */
 .submit-btn {
   width: 100%;
   padding: 14px;
-  background-color: #457b9d; /* Deep Teal */
+  background-color: #457b9d;
   color: white;
   border: none;
   border-radius: 8px;
@@ -231,7 +229,6 @@ textarea {
   font-size: 0.85rem;
 }
 
-/* AI Feedback Box */
 .ai-box {
   background: #f0f9ff;
   border-left: 5px solid #a8dadc;
@@ -248,7 +245,6 @@ textarea {
   color: #0c4a6e;
 }
 
-/* History Section */
 .history-header {
   display: flex;
   justify-content: space-between;
@@ -301,7 +297,12 @@ textarea {
 
 .font-bold { font-weight: 600; }
 
-/* Transitions */
+.empty-state {
+  padding: 40px;
+  text-align: center;
+  color: #94a3b8;
+}
+
 .fade-enter-active, .fade-leave-active { transition: opacity 0.5s; }
 .fade-enter, .fade-leave-to { opacity: 0; }
 </style>
